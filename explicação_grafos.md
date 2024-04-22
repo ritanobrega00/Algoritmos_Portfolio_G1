@@ -14,6 +14,7 @@ from contextlib import redirect_stdout -> função usada para redirecionar a sa�
 
 - def __str__(self): Este método  é chamado quando a função str() é chamada no objeto. É retornada uma representação de string mais legível do grafo. Utiliza um objeto de io.StringIO como armazenamento de memória temporário e redireciona a saída padrão para este usando redirect_stdout(). Em seguida, itera sobre o dicionário grafo e imprime cada nó seguido pela lista de nós adjacentes, separados por "=>". Por fim, retorna o conteúdo que foi armazendo na memória, como uma string.
 
+Foi então definida uma nova classe:  AnalisadorGrafo -> classe que é responsável por fornecer métodos para analisar e explorar as propriedades de um grafo (sucessores, predecessores, vertices adjacentes, etc).
 
 - predecessores(self, vertice): Este método retorna uma lista dos predecessores do vértice dado. Itera sobre cada vértice no grafo e verifica se o vértice de entrada é um sucessor desse vértice. Se for, adiciona o vértice atual à lista de predecessores.
 
