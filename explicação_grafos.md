@@ -1,4 +1,5 @@
-import io -> importa o módulo io, que fornece classes para trabalhar com entrada e saída de dados.
+import io -> importa o módulo io, que fornece classes para trabalhar com entrada e saída de dados
+
 from contextlib import redirect_stdout -> função usada para redirecionar a saída padrão para um objeto específico
 
 - class Grafo_orientado: definimos uma classe chamada Grafo_orientado. Esta classe representa um grafo orientado, onde os nós têm arestas unidirecionais entre si.
