@@ -2,7 +2,7 @@ import io -> importa o módulo io, que fornece classes para trabalhar com entrad
 
 from contextlib import redirect_stdout -> função usada para redirecionar a saída padrão para um objeto específico
 
-- class Grafo_orientado: definimos uma classe chamada Grafo_orientado. Esta classe representa um grafo orientado, onde os nós têm arestas unidirecionais entre si.
+Definimos a classe Grafo_orientado -> esta classe representa um grafo orientado, onde os nós têm arestas unidirecionais entre si.
 
 - def __init__(self): Este é o método construtor da classe. É chamado automaticamente quando um novo objeto da classe é criado. Inicializa o objeto criando um dicionário vazio chamado grafo.
 
