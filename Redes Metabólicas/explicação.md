@@ -1,7 +1,7 @@
 Este código define uma classe chamada RedeMetabolica que trabalha com reações metabólicas representadas como um grafo direcionado.
+- Esta classe herda o 'AnalisadorGrafo' presente no script 'Grafos' deste mesmo reportório;
+- Possui um método construtor que inicializa um novo objeto RedeMetabolica e chama o construtor da classe AnalisadorGrafo através do uso do 'super().init()'.
 
-Esta classe herda o 'AnalisadorGrafo' presente no script 'Grafos' deste mesmo reportório;
-Possui um método construtor que inicializa um novo objeto RedeMetabolica e chama o construtor da classe AnalisadorGrafo através do uso do 'super().init()'.
 -> A função 'adicionar_reacao' recebe o nome da reação, os substratos e os produtos. Se a reação for reversível, as arestas também serão adicionadas no sentido contrário.
 
 -> A função 'adicionar_grafo' adiciona uma reação ao grafo, juntamente com os nós (ou seja, os metabolitos) que estão envolvidos antes e depois da reação.
