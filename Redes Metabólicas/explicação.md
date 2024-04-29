@@ -10,3 +10,4 @@ Este código define uma classe chamada RedeMetabolica que trabalha com reações
 
 A linha 'display(G.render('output', format='png'))' será responsável por criar uma representação visual do grafo, através do formato png.
 Posteriormente, a imagem do grafo aparecerá diretamente no ambiente de execução (compatibilidade com notebook Jupyter ou IPython).
+Os metabolitos são representados por bolas com cor verde e as reações aparecem em quadrados, a amarelo.
