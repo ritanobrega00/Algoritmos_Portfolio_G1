@@ -7,5 +7,5 @@ Tópicos a abordar:
   - Procura de padrões: Autómatos finitos; Tries; Árvores de sufixos
   - Alinhamentos contra referências (BWTs)
   - Grafos
-  - Redes biológicas
+  - Redes Metabólicas
   - Genome assembly
