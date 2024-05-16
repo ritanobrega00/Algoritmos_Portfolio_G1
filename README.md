@@ -8,4 +8,3 @@ Tópicos a abordar:
   - Alinhamentos contra referências (BWTs)
   - Grafos
   - Redes Metabólicas
-  - Genome assembly
