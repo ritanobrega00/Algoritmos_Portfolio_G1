@@ -1,6 +1,6 @@
 from MySeq import MySeq
 from MyMotifs import MyMotifs
-from random import random, randint
+from random import random, randint, choice
 # Recorremos às classes MyMotifs e MySeq implementadas nas aulas de Algoritmos, 
 # assim como à parte de definição do objeto feita pelo Prof. Rui Mendes em MotifFinding-incompleto.py
 
@@ -37,65 +37,54 @@ class GibbsSampling:
             self.seqs.append(MySeq(s.strip().upper(),t))
         self.alphabet = self.seqs[0].alfabeto()
     
-    def createMotifFromIndexes(self, s):
-        pseqs = []
-        for i,ind in enumerate(s):
-            pseqs.append( MySeq(self.seqs[i][ind:(ind+self.motifSize)], self.seqs[i].tipo) )
-        return MyMotifs(pseqs)
-
-    def scoreMult(self, s):
-        score = 1.0
-        motif = self.createMotifFromIndexes(s)
-        motif.createPWM()
-        mat = motif.pwm
-        for j in range(len(mat[0])):
-            maxcol = mat[0][j]
-            for  i in range(1, len(mat)):
-                if mat[i][j] > maxcol: 
-                    maxcol = mat[i][j]
-            score *= maxcol
-        return score  
-
     #Código desenvolvido por nós para o Gibbs Sampling
-    def random_offsets(self):
+    def RandomOffsets(self):
         """
     Função que gera um determinado nº de nºs aleatórios dentro de um determinado range 
     (que vai depender do tamanho das seqs dadas)
     Output: dicionário com a lista de nº inteiros aleatóriamente escolhidos como valores e 
         como chaves as sequências associadas
         """
-        fim_range = len(self.seqs[0]) - self.motifSize
         offsets_dict = dict()
-        for i in range(0, len(self.seqs)):
-            offsets_dict[self.seqs[i]] = randint(0, fim_range)
+        for seq in self.seqs:
+            offsets_dict[seq] = randint(0, len(self.seqs[0]) - self.motifSize)
         return offsets_dict
     
-    def random_segments(self):
+    def CreateMotifs(self, offsets:dict):
         """
-        Função que gera segmentos aleatórios em cada sequência
+        Função que gera segmentos (motifs) em cada sequência com base num dicionário com offsets e as sequencias respetivas
         Output: lista com os segmentos de cada sequência gerads aleatoriamente com tamanho L (self.motifSize)
         """
-        offsets = self.random_offsets()
-        lista_seg = []
-        for seq in offsets.keys():
-            initial_pos = offsets[seq]
-            final_pos = offsets[seq] + self.motifSize
-            lista_seg.append(seq[initial_pos : final_pos])
-        return lista_seg
+        lista_motifs = []
+        for seq, pos in offsets.items():
+            lista_motifs.append(seq[pos: pos + self.motifSize])
+        return MyMotifs(lista_motifs)
     
+    def Score(self, offsets):
+        #adaptada do Prof. Rui Mendes
+        score = 1.0
+        motif = self.CreateMotifs(offsets)
+        motif.createPWM()
+        matrix = motif.pwm
+        for j in range(len(matrix[0])):
+            maxcol = max( matrix[i][j] for i in range(len(matrix)) )
+            score *= maxcol
+        return score  
+
     def prob_para_pos(self, seq):
         """
         Função para determinar a probabilidade para cada posição na sequência escolhida
         """
+        pwm = MyMotifs.createPWM()
         list_prob = []
         pos = []
-        for pos_seq in range(0, len(seq) - self.motifSize):
+        for pos_seq in range(len(seq) - self.motifSize + 1):
             pos.append(pos_seq)
-            list_prob.append( MyMotifs.probabSeq( seq[pos_seq : pos_seq + self.motifSize - 1]) )
-        prob = [x/sum(list_prob) for x in list_prob]
+            list_prob.append( pwm.probabSeq(seq[pos_seq : pos_seq + self.motifSize]))
+        prob = [p/sum(list_prob) for p in list_prob]
         return pos, prob
 
-    def random_selection(self):
+    def RandomSelection(self, offsets:dict):
         """
         Função que:
         1. escolhe offsets aleatórios em cada sequência (recorrendo à random_segments)
@@ -103,48 +92,44 @@ class GibbsSampling:
         3. Cria o perfil P a partir das posições escolhidas anteriormente
         4. Calcula a probabilidade de um determinado segmento da seq1 ser gerado por P
         5. escolha aleatória de um valor de cutoff que está entre 0 e 1 (soma das probabilidades para a posição p)
-
+        input: dicionário com as sequências e os respetivos offsets (gerados aleatoriamente pelo random_offsets()
         output: lista de posições p na sequência escolhida aleatóriamente, lista de probabilidades para cada p e o valor de cutoff
         """
         assert all(len(seq)==len(self.seqs[0]) for seq in self.seqs), 'As sequências não têm o mesmo tamanho'
-        segmentos_seqs = self.random_segments(self.seqs, self.motifSize)
-        seq1 = random.choice()
-        seg1 = segmentos_seqs.pop(self.seqs.index(seq1))
-        pos_list, prob_list = self.prob_para_pos(seg1, self.motifSize, MyMotifs.createPWM(segmentos_seqs) )
-        #print(pos_list, prob_list)
-        cutoff = random.uniform(0, sum(prob_list))
-        #print(cutoff)
-        return seq1, pos_list, prob_list, cutoff
+        segmentos_seqs = self.CreateMotifs(offsets)
+        sequence_selected = choice(self.seqs)
+        x = segmentos_seqs.pop(self.seqs.index(sequence_selected))
+        pos, prob = self.prob_para_pos(x, self.motifSize, MyMotifs.createPWM(segmentos_seqs) )
+        cutoff = random.uniform(0, sum(prob))
+        return sequence_selected, pos, prob, cutoff
 
-    def roleta(self):
+    def roleta(self, offsets):
         """Escolha eutócastica da posição p de acordo com as probabilidades calculadas com a função random_selection()"""
-        seq1, pos_list, prob_list, _ = self.random_selection()
+        sequence_selected, pos_list, prob_list, _ = self.RandomSelection(offsets)
         total_prob = sum(prob_list)
         val = random.uniform(0, total_prob)
         acum = 0.0
         for i, prob in enumerate(prob_list):
             acum += prob
             if acum >= val:
-                p = pos_list[i]
-                return seq1, p
-        return seq1, pos_list[0]
+                return sequence_selected, pos_list[i]
+        return sequence_selected, pos_list[0]
 
-    def gibbs(self, max_iter=10, min_improvement=1e-6):
+    def gibbs(self, max_iter=100, min_improvement=1e-6):
         """
         Algoritmo de Gibbs Sampling que irá encontrar o melhor offset para cada sequência da lista fornecida
         Para não fazer um loop infinito, definimos um critério de terminação que é o nº máximo de iterações e a melhoria mínima que queremos obter
         """
         best_score = -float('inf')
-        best_offsets = {}
+        best_offsets = None
+        current_offsets = self.RandomOffsets()
         for _ in range(max_iter):
-            offsets = {}
-            for seq in self.seqs:
-                _, p = self.roleta(self.seqs, self.motifSize)
-                offsets[seq] = p
-            motif = self.createMotifFromIndexes(offsets.values())
-            score = self.scoreMult(list(offsets.values()))
+            sequence, pos = self.roleta()
+            current_offsets[sequence] = pos
+            score = self.Score(current_offsets)
             if score > best_score + min_improvement:
                 best_score = score
-                best_offsets = offsets
-        return best_offsets
+                best_offsets = current_offsets.copy()
+        best_motifs = self.CreateMotifs(best_offsets)
+        return best_offsets, best_motifs
 
