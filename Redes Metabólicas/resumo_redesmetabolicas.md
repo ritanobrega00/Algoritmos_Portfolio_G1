@@ -3,7 +3,8 @@ As redes metabólicas são representações do metabolismo, que é o conjunto de
 - Rede de metabolitos: Nesta rede, os nós representam os compostos químicos e as reações são representadas pelas conexões entre esses compostos.
 - Rede de reações: Aqui, os nós são as próprias reações e as conexões entre elas são representadas pelos metabólitos compartilhados.
 - Rede de metabolitos e reações: Nesta rede, os nós representam tanto os compostos quanto as reações, e as conexões indicam a participação dos compostos nas reações como substratos ou produtos.
-Além disso, uma representação comum para essas redes é através de grafos bipartidos, onde um grafo G=(V,E) é considerado bipartido quando:
+  
+Uma representação comum para essas redes é através de grafos bipartidos, onde um grafo G=(V,E) é considerado bipartido quando:
 O seu conjunto de vértices V pode ser dividido em dois conjuntos V1 e V2, de modo que a união de V1 e V2 é igual a V, e a interseção entre eles é vazia.
 O conjunto de arestas E contém apenas pares onde um dos vértices pertence a V1 e o outro a V2, ou seja, só existem conexões entre elementos de diferentes conjuntos, e não há conexões entre elementos do mesmo conjunto.
 Portanto, as redes metabólicas reação-metabolito são exemplos de grafos bipartidos, onde V1 representa o conjunto de metabolitos e V2 representa o conjunto de reações.
