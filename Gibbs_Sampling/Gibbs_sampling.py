@@ -19,7 +19,6 @@ class GibbsSampling:
         self.motifSize = size
         if (seqs != None):
             self.seqs = seqs
-            self.alphabet = seqs[0].alfabeto()
         else:
             self.seqs = []
                     
@@ -64,7 +63,7 @@ class GibbsSampling:
         #adaptada do Prof. Rui Mendes
         score = 1.0
         motif = self.CreateMotifs(offsets)
-        motif.createPWM()
+        motif.createPWM(self)
         matrix = motif.pwm
         for j in range(len(matrix[0])):
             maxcol = max( matrix[i][j] for i in range(len(matrix)) )
@@ -75,7 +74,7 @@ class GibbsSampling:
         """
         Função para determinar a probabilidade para cada posição na sequência escolhida
         """
-        pwm = MyMotifs.createPWM()
+        pwm = MyMotifs.createPWM(self)
         list_prob = []
         pos = []
         for pos_seq in range(len(seq) - self.motifSize + 1):
@@ -124,7 +123,7 @@ class GibbsSampling:
         best_offsets = None
         current_offsets = self.RandomOffsets()
         for _ in range(max_iter):
-            sequence, pos = self.roleta()
+            sequence, pos = self.roleta(current_offsets)
             current_offsets[sequence] = pos
             score = self.Score(current_offsets)
             if score > best_score + min_improvement:
