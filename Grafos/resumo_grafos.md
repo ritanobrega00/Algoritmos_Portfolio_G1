@@ -22,7 +22,9 @@ Se o grafo é orientado, podem definir-se:
 • o grau de saída: número de ligações que saem desse nó (nº de sucessores)
 
 Existem duas estratégias que podem ser usadas para definir a ordem de exploração dos nós numa travessia:
+
 – Em largura: começa pelo nó origem, depois explora todos os seus sucessores, depois os sucessores destes, e assim sucessivamente até todos os nós atingíveis terem sido explorados;
+
 – Em profundidade: começa pelo nó origem e explora o 1º sucessor, seguido pelo 1º sucessor deste e assim sucessivamente até não haver mais sucessores e ter que se fazer “backtracking”.
 
 
