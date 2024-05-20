@@ -9,7 +9,7 @@ class TestGrafoOrientado(unittest.TestCase):
         G = Grafo_orientado()
         G.adicionar_no(1)
         G.adicionar_no(2)
-        G.adicionar_no(1)  # Testando adicionar um nó que já existe
+        G.adicionar_no(1) 
         self.assertEqual(G.grafo, {1: set(), 2: set()})
 
     def test_adicionar_aresta(self):
