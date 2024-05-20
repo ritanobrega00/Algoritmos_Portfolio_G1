@@ -6,7 +6,7 @@ uma orientação (pares ordenados) ou não.
 
 
 Os grafos podem ser:
-- Grafos Orientados (ou Digrafos):
+- *Grafos Orientados (ou Digrafos)*:
 São grafos nos quais as arestas têm uma direção associada a elas. Isto é, significa que a relação entre dois vértices é unidirecional, indo de um vértice de origem para um vértice de destino. 
 - Grafos Não Orientados:
 São grafos onde as arestas não têm direção associada a elas. Isso significa que a relação entre dois vértices é bidirecional, sem uma distinção entre vértice de origem e vértice de destino.
