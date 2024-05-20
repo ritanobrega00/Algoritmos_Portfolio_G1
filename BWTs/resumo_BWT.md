@@ -14,7 +14,7 @@ string rotacionada para formar o BWT. Se sufixarray for verdadeiro, também cons
 
 - Função find_occ: retorna uma lista de tuples onde cada tuple é formada por um caractere do BWT e o número de ocorrências desse caractere até aquele ponto no BWT.
 
- -Função inverse_bwt: realiza a operação inversa da transformação de Burrows-Wheeler. É usada a lista de ocorrências para reconstruir a sequência original.
+  -Função inverse_bwt: realiza a operação inversa da transformação de Burrows-Wheeler. É usada a lista de ocorrências para reconstruir a sequência original.
  
  - Função last_to_first: retorna uma lista que mapeia os índices das últimas colunas do BWT para as primeiras colunas do BWT.
  
