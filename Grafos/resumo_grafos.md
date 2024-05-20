@@ -1,8 +1,9 @@
+Os grafos são amplamente utilizados em diversas áreas, incluindo ciência da computação, redes, matemática, e muitas outras, para modelar relações entre entidades.
 Um grafo G=(V,E) é uma estrutura matemática composta por:
 - Um conjunto V de vértices ou nós
 - Um conjunto E de pares de nós, designados por ramos, conexões, ligações ou arcos, cada um ligando dois nós. Estes arcos podem ter
 uma orientação (pares ordenados) ou não.
-Estes são amplamente utilizados em diversas áreas, incluindo ciência da computação, redes, matemática, e muitas outras, para modelar relações entre entidades.
+
 
 Os grafos podem ser:
 - Grafos Orientados (ou Digrafos):
