@@ -1,7 +1,7 @@
 import unittest
 from io import StringIO
 from contextlib import redirect_stdout
-from GrafoOrientado import GrafoOrientado
+from Grafo_orientado import Grafo_orientado
 
 class TestGrafoOrientado(unittest.TestCase):
 
