@@ -6,7 +6,10 @@ Os automatos finitos são especialmente úteis na bioinformática, onde muitas v
 
 Classe Automata:
 - __init__(self, alphabet, pattern): O construtor da classe inicializa o automato com um alfabeto e um padrão. O número de estados do automato é definido como o comprimento do padrão mais um. A tabela de transição é inicializada como um dicionário vazio e, em seguida, construída usando a função 'buildTransitionTable';
-- buildTransitionTable(self, pattern): Esta função constrói a tabela de transição do automato, itera sobre todos os estados possíveis e todos os símbolos do alfabeto, preenchendo a tabela de transição com o próximo estado para cada par de estado e símbolo. É chamada a função overlap para calcular o próximo estado com base no padrão atual e o símbolo lido.
+- buildTransitionTable(self, pattern): Esta função constrói a tabela de transição do automato, itera sobre todos os estados possíveis e todos os símbolos do alfabeto, preenchendo a tabela de transição com o próximo estado para cada par de estado e símbolo. É chamada a função overlap para calcular o próximo estado com base no padrão atual e o símbolo lido;
+- nextState(self, current, symbol): Esta função retorna o próximo estado do automato, dado o estado atual e o símbolo lido.
+- applySeq(self, seq): Esta função aplica uma sequência de símbolos ao automato, retornando uma lista de estados alcançados.
+- occurencesPattern(self, text): Esta função conta o número de ocorrências do padrão no texto e retorna a quantidade de ocorrências e as posições de início de cada ocorrência.
 
 Função overlap:
 - Esta função calcula o maior sufixo de s1 que é um prefixo de s2. Isto é, calcula o comprimento da maior sobreposição entre s1 e s2. Isto é essencial para determinar os próximos estados durante a construção do automato. Isto é feito comparando os sufixos de s1 com os prefixos de s2, e retornando o comprimento da maior sobreposição encontrada.
