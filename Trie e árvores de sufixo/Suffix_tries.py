@@ -1,4 +1,4 @@
-#import graphviz
+import graphviz
 from io import StringIO
 import pprint
 
@@ -31,7 +31,7 @@ class SuffixTrie:
 
     def exists(self, suffix):
         """Verifica se um sufixo completo existe na SuffixTrie."""
-        node = 0  #
+        node = 0
         suffix = suffix.upper()  
         for symbol in suffix:
             if symbol not in self.nodes[node]:
@@ -90,7 +90,6 @@ class SuffixTrie:
 
         return True
 
-    #para visualizar a SuffixTrie
     def to_graphviz(self, G=None, t=None, name=None):
         """Visualiza a estrutura da SuffixTrie usando Graphviz."""
         G = G or graphviz.Digraph()
@@ -104,10 +103,10 @@ class SuffixTrie:
             """Adiciona as arestas ao objeto Graphviz."""
             for symbol, next_node in self.nodes[node].items():
                 symbol_label = symbol if symbol.isalpha() else '$'
-                new_name = f"{name}_{symbol_label}" 
-                G.edge(name, new_name, label=symbol_label)  
+                new_name = f"{name}_{symbol_label}"
+                G.edge(name, new_name, label=symbol_label)
                 if symbol != '#$#':
                     add_edges(next_node, new_name)
         
-        add_edges(0, name)  
+        add_edges(0, name)
         return G
