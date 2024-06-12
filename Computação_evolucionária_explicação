@@ -1,0 +1,29 @@
+Class EvolAlgorithm:
+This class implements an evolutionary algorithm framework. It facilitates the evolution of a population of individuals over multiple generations. Key functionalities include initialization of the population, evaluation of fitness, parent selection using roulette wheel selection, crossover to create offspring, mutation of individual genomes, and replacement of the current population with a new one based on evolutionary operations.
+
+init(self, tamanho_populacao, comprimento_genoma, limite_inferior, limite_superior, taxa_mutacao, max_geracoes):
+Constructor that initializes the evolutionary algorithm parameters including population size, genome length, mutation rate, and maximum number of generations. It also initializes the population of individuals with random genomes within specified bounds.
+
+inicializar_populacao(self):
+Initializes the population with randomly generated individuals, each having a genome of specified length and within given lower and upper bounds.
+
+avaliar_populacao(self):
+Evaluates the fitness of all individuals in the population.
+
+avaliar(self, individuo):
+Abstract method intended to be overridden by subclasses. It evaluates the fitness of a specific individual.
+
+selecionar_pais(self):
+Selects parent individuals using roulette wheel selection based on their fitness scores.
+
+crossover(self, pai1, pai2):
+Performs crossover between two parent individuals to produce two offspring with combined genetic material from both parents.
+
+mutacao(self, individuo):
+Mutates the genome of an individual based on a specified mutation rate, randomly altering genome values within specified bounds.
+
+substituir_populacao(self, nova_populacao):
+Replaces the current population with a new population of individuals.
+
+executar(self):
+Executes the evolutionary algorithm over a predefined number of generations. It evaluates the current population, creates a new population through selection, crossover, and mutation operations, and replaces the old population with the new one for subsequent generations. Optionally, it prints the fitness of the best individual in each generation.
