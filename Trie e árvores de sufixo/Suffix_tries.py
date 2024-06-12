@@ -99,14 +99,14 @@ class SuffixTrie:
         t = t or self.nodes
         name = name or 'root'
         
-        def add_edges(node, name):
-            """Adiciona as arestas ao objeto Graphviz."""
-            for symbol, next_node in self.nodes[node].items():
+        def add_edges(current_node, parent_name):
+            """Recursively add edges to the Graphviz object."""
+            for symbol, next_node in t[current_node].items():
                 symbol_label = symbol if symbol.isalpha() else '$'
-                new_name = f"{name}_{symbol_label}"
-                G.edge(name, new_name, label=symbol_label)
-                if symbol != '#$#':
-                    add_edges(next_node, new_name)
+                new_name = f"{parent_name}_{symbol_label}"
+                G.node(new_name, label=symbol_label)
+                G.edge(parent_name, new_name, label=symbol_label)
+                add_edges(next_node, new_name)
         
         add_edges(0, name)
         return G
