@@ -21,7 +21,7 @@ Retorna a sequência na posição n.
 Retorna o tamanho da sequência i.
 
 * readFile(self, fic, t)
-Lê um arquivo de sequências e as armazena na lista self.seqs.
+Lê um arquivo de sequências e as armazena na lista self.seqs, assegurando que não há espaços e todas as letras são maiúsculas.
 
 * RandomOffsets(self)
 Função que gera offsets aleatórios para cada sequência.
@@ -39,7 +39,7 @@ Função que calcula o score dos motifs criados a partir dos offsets fornecidos 
 
 * prob_para_pos(self, seq)
 Função que calcula a probabilidade de cada posição da sequência dada como input (str) gerar um segmento de comprimento self.motifSize.
-Recorrendo à função createPWM() presente na classe 'MyMotifs', é gerada a PWM. São criadas duas listas vazias para armazenar a posição e a probabilidade correspondente.
+Recorrendo à função createPWM() presente na classe 'MyMotifs', é gerada a PWM. É criado um dicionário vazio para armazenar a posição e a probabilidade correspondente.
 A probabilidade de determinada posição gerar um segmento de comprimento self.motifSize é calculada recorrendo á função probabSeq() presente em MyMotifs.
 A função devolve um dicionário onde as chaves são as posições na sequência fornecida e o valor associado é a probabilidade calculada.
 
