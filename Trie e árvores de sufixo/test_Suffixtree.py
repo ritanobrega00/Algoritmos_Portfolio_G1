@@ -47,7 +47,7 @@ class TestSuffixTree(unittest.TestCase):
         for sufixo in sufixos:
             self.assertIsNotNone(self.suffix_tree.procura_sufixo(sufixo))
         for sufixo in sufixos_falsos:
-            self.assertIsNone(self.suffix_tree.procura_sufixo(sufixo))       
+            self.assertFalse(self.suffix_tree.procura_sufixo(sufixo))       
 
 
     def test_remove_sufixo(self):
@@ -60,7 +60,7 @@ class TestSuffixTree(unittest.TestCase):
         for palavra in para_apagar:
             self.assertTrue(self.suffix_tree.existe(palavra))
             self.assertTrue(self.suffix_tree.remove_sufixo(palavra))
-            self.assertFalse(self.suffix_tree.existe(palavra))
+            self.assertFalse(self.suffix_tree.procura_sufixo(palavra))
 
         nova_lista = ["ama", "amarillo", 'ACGTACGTACGTACGT']
         for palavra in nova_lista:

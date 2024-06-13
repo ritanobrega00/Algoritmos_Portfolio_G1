@@ -49,35 +49,35 @@ class SuffixTree:
     def procura_sufixo(self, sufixo):
         no = 0
         sufixo = sufixo.upper()
-        for simbolo in sufixo:
-            if simbolo in self.nos[no]:
-                no = self.nos[no][simbolo]   
-            else:
-                return None
-        return no if None in self.nos[no] else None
+        return all(simbolo in self.nos[no] for simbolo in sufixo) and None in self.nos[no]
 
     def remove_sufixo(self, sufixo):
         sufixo = sufixo.upper()
         no_final = self.procura_sufixo(sufixo)
-        if no_final is None or None not in self.nos[no_final]:
-            return False
-    
-        del self.nos[no_final][None]
-    
-        while no_final != 0 and not self.nos[no_final]:
+        if no_final is None:
+            return False  
+
+        if None in self.nos[no_final]:
+            del self.nos[no_final][None]
+
+        no = 0
+        for simbolo in sufixo:
+            if simbolo in self.nos[no]:
+                no = self.nos[no][simbolo]
+            else:
+                return True 
+
+        while no!= 0 and len(self.nos[no]) == 0:
             parent_no = None
-            for no, children in self.nos.items():
+            for no_parent, children in self.nos.items():
                 for simbolo, child_no in children.items():
-                    if child_no == no_final:
-                        parent_no = no
+                    if child_no == no:
+                        parent_no = no_parent
                         parent_simbolo = simbolo
                         break
                 if parent_no is not None:
-                    break
-
-            if parent_no is not None:
-                del self.nos[parent_no][parent_simbolo]
-                del self.nos[no_final]
-            no_final = parent_no
+                    del self.nos[parent_no][parent_simbolo]
+                    del self.nos[no]
+            no = parent_no
         return True
 
